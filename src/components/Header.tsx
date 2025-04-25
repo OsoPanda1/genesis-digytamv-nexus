@@ -1,9 +1,21 @@
+
 import React from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
+import { Facebook, Instagram, Twitter, Linkedin, Youtube, Telegram, Link } from "lucide-react";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
 }
+
+const socialLinks = [
+  { icon: Facebook, href: "https://facebook.com/tamvonline", label: "Facebook" },
+  { icon: Instagram, href: "https://instagram.com/tamvonline", label: "Instagram" },
+  { icon: Twitter, href: "https://twitter.com/tamvonline", label: "Twitter" },
+  { icon: Linkedin, href: "https://linkedin.com/company/tamvonline", label: "LinkedIn" },
+  { icon: Youtube, href: "https://youtube.com/@tamvonline", label: "YouTube" },
+  { icon: Telegram, href: "https://t.me/tamvonline", label: "Telegram" },
+];
 
 const Header = ({ className, ...props }: HeaderProps) => {
   return (
@@ -21,29 +33,60 @@ const Header = ({ className, ...props }: HeaderProps) => {
         <div className="w-1/3 bg-red-600" />
       </div>
 
-      {/* Existing Header Content */}
-      <div 
-        className="py-4 px-6 flex items-center justify-between glassmorphic border-b border-white/5"
-      >
-        <div className="flex items-center space-x-2">
-          <div className="bg-gradient-prismatic h-8 w-8 rounded-md flex items-center justify-center animate-pulse-glow">
-            <span className="text-primary-foreground font-bold text-lg">G</span>
+      {/* Main Header Content */}
+      <div className="py-4 px-6 flex flex-col gap-4 glassmorphic border-b border-white/5">
+        {/* Top Row with Logo and System Status */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="bg-gradient-prismatic h-8 w-8 rounded-md flex items-center justify-center animate-pulse-glow">
+              <span className="text-primary-foreground font-bold text-lg">G</span>
+            </div>
+            <div>
+              <h1 className="text-xl font-semibold leading-none tracking-tight">
+                <span className="text-gradient">GÉNESIS</span> <span className="text-white/80">DIGYTAMV</span>
+              </h1>
+              <p className="text-xs text-muted-foreground mt-0.5">Sistema de Integración de Conocimiento Híbrido</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-xl font-semibold leading-none tracking-tight">
-              <span className="text-gradient">GÉNESIS</span> <span className="text-white/80">DIGYTAMV</span>
-            </h1>
-            <p className="text-xs text-muted-foreground mt-0.5">Nexus File Integration System</p>
+          
+          <div className="flex items-center space-x-2">
+            <span className="text-xs text-muted-foreground">Sistema Neural v1.0</span>
+            <div className="h-2 w-2 rounded-full bg-accent animate-pulse-glow"></div>
           </div>
         </div>
-        
-        <div className="flex items-center space-x-2">
-          <span className="text-xs text-muted-foreground">Sistema Neural v1.0</span>
-          <div className="h-2 w-2 rounded-full bg-accent animate-pulse-glow"></div>
+
+        {/* Social Links & TAMV Network Link */}
+        <div className="flex items-center justify-between border-t border-white/5 pt-4">
+          <div className="flex items-center gap-3">
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label={social.label}
+              >
+                <social.icon size={18} />
+              </a>
+            ))}
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2 text-xs bg-black/20 hover:bg-black/40 border-white/10"
+            asChild
+          >
+            <a href="https://tamvonline.network" target="_blank" rel="noopener noreferrer">
+              <Link size={14} />
+              TAMV Online Network
+            </a>
+          </Button>
         </div>
       </div>
 
-      {/* New Subtitle */}
+      {/* Subtitle */}
       <div className="w-full text-center py-2 bg-black/20 backdrop-blur-sm">
         <p className="text-sm text-white/80 font-medium">
           Orgullosamente Mexicanos, Real del Monte, Hidalgo 🖤
