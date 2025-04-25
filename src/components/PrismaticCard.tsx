@@ -16,16 +16,16 @@ const PrismaticCard = ({
   className,
   ...props
 }: PrismaticCardProps) => {
-  const baseClasses = "rounded-lg backdrop-blur-md border p-4 transition-all duration-300";
+  const baseClasses = "rounded-lg backdrop-blur-md border p-4 transition-all duration-300 celestial-card";
   
   const variantClasses = {
-    default: "bg-card/70 border-white/5 text-card-foreground",
-    quantum: "bg-quantum-600/70 border-quantum-300/20 text-quantum-100",
-    crystal: "bg-card/50 border-crystal-300/20 text-crystal-100",
-    nebula: "bg-card/50 border-nebula-300/20 text-nebula-100",
+    default: "bg-card/70 border-white/5 text-card-foreground shadow-quantum/20",
+    quantum: "bg-quantum-600/70 border-quantum-300/20 text-quantum-100 shadow-quantum",
+    crystal: "bg-card/50 border-crystal-300/20 text-crystal-100 shadow-crystal",
+    nebula: "bg-card/50 border-nebula-300/20 text-nebula-100 shadow-nebula",
   };
 
-  const glowClasses = glow ? "shadow-prismatic" : "";
+  const glowClasses = glow ? "crystal-glow" : "";
 
   return (
     <div
@@ -43,3 +43,4 @@ const PrismaticCard = ({
 };
 
 export default PrismaticCard;
+

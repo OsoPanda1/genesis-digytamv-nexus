@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -130,6 +129,18 @@ export default {
 					'0%': { backgroundPosition: '-500px 0' },
 					'100%': { backgroundPosition: '500px 0' },
 				},
+				'pulse-slow': {
+					'0%, 100%': { transform: 'scale(1)', opacity: '0.5' },
+					'50%': { transform: 'scale(1.05)', opacity: '0.8' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'text-shimmer': {
+					'0%': { backgroundPosition: '-500px 0' },
+					'100%': { backgroundPosition: '500px 0' }
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -138,6 +149,9 @@ export default {
 				'float': 'float 6s ease-in-out infinite',
 				'rotate-slow': 'rotate-slow 8s linear infinite',
 				'shimmer': 'shimmer 2s infinite linear',
+				'pulse-slow': 'pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'float': 'float 6s ease-in-out infinite',
+				'text-shimmer': 'text-shimmer 2s infinite linear'
 			},
 			backdropFilter: {
 				'none': 'none',
@@ -147,6 +161,9 @@ export default {
 				'prismatic': '0 0 15px rgba(155, 135, 245, 0.5)',
 				'crystal': '0 10px 30px -10px rgba(103, 195, 222, 0.3)',
 				'inner-glow': 'inset 0 0 10px rgba(155, 135, 245, 0.3)',
+				'crystal': '0 0 20px rgba(103,195,222,0.3)',
+				'quantum': '0 0 20px rgba(155,135,245,0.3)',
+				'nebula': '0 0 20px rgba(229,124,115,0.3)'
 			},
 			backgroundImage: {
 				'gradient-prismatic': 'linear-gradient(135deg, #9B87F5 0%, #67C3DE 100%)',
@@ -154,6 +171,9 @@ export default {
 				'gradient-crystal': 'linear-gradient(90deg, #33ADC6 0%, #9B87F5 100%)',
 				'gradient-nebula': 'linear-gradient(90deg, #B22E4B 0%, #F2A58D 100%)',
 				'shimmer': 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%)',
+				'gradient-crystal': 'linear-gradient(45deg, #67C3DE, #9B87F5, #67C3DE)',
+				'gradient-quantum': 'linear-gradient(45deg, #6E59A5, #1E8FAA)',
+				'gradient-nebula': 'linear-gradient(45deg, #FEC6A1, #E57C73, #B22E4B)'
 			}
 		}
 	},
