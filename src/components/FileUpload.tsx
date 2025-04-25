@@ -113,7 +113,7 @@ const FileUpload = ({
     
     // Update all idle files to uploading
     setFiles(prev => prev.map(file => 
-      file.status === "idle" ? { ...file, status: "uploading" } : file
+      file.status === "idle" ? { ...file, status: "uploading" as const } : file
     ));
     
     // Simulate upload progress
@@ -125,7 +125,7 @@ const FileUpload = ({
             return {
               ...file,
               progress: newProgress,
-              status: newProgress >= 100 ? "complete" : "uploading"
+              status: newProgress >= 100 ? "complete" as const : "uploading" as const
             };
           }
           return file;
