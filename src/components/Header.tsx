@@ -36,33 +36,47 @@ const socialLinks = [
 
 const Header = ({ className, ...props }: HeaderProps) => {
   return (
-    <motion.header 
+    <motion.div 
       className={cn("w-full flex flex-col", className)}
-      {...props}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Tricolor Bar with Animation */}
-      <div className="w-full h-1 flex">
+      {/* Mexican Flag Neon Effect */}
+      <div className="w-full flex flex-col items-center justify-center py-2 bg-background/50 backdrop-blur-sm relative overflow-hidden">
+        <div className="flex items-center space-x-1 mb-2">
+          <motion.div 
+            className="h-4 w-4 bg-green-600 rounded-l shadow-[0_0_15px_#22c55e]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <motion.div 
+            className="h-4 w-4 bg-white shadow-[0_0_15px_#ffffff]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+          />
+          <motion.div 
+            className="h-4 w-4 bg-red-600 rounded-r shadow-[0_0_15px_#dc2626]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
+          />
+        </div>
+        
+        {/* Neon Text Effect */}
         <motion.div 
-          className="w-1/3 bg-green-600"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        />
-        <motion.div 
-          className="w-1/3 bg-white"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        />
-        <motion.div 
-          className="w-1/3 bg-red-600"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        />
+          className="text-sm font-medium tracking-wide relative"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+        >
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-500 via-white to-red-500 
+                         [text-shadow:_0_0_5px_#22c55e,_0_0_10px_#ffffff,_0_0_15px_#dc2626] animate-pulse-slow">
+            Orgullosamente Mexicanos, Real del Monte, Hidalgo
+          </span>
+        </motion.div>
       </div>
 
       {/* Main Header Content */}
@@ -138,19 +152,7 @@ const Header = ({ className, ...props }: HeaderProps) => {
           </motion.div>
         </div>
       </div>
-
-      {/* Subtitle with shimmer effect */}
-      <motion.div 
-        className="w-full text-center py-2 bg-black/20 backdrop-blur-sm"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 1.2 }}
-      >
-        <p className="text-sm text-white/80 font-medium">
-          Orgullosamente Mexicanos, Real del Monte, Hidalgo 🖤
-        </p>
-      </motion.div>
-    </motion.header>
+    </motion.div>
   );
 };
 

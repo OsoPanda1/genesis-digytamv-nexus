@@ -52,30 +52,39 @@ const Index = () => {
     >
       {/* Dynamic Background Effect with parallax */}
       <div className="fixed inset-0 bg-black z-0">
-        {/* Deep space layer */}
+        {/* Cosmic Tree Layer */}
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-quantum-600/50 via-background to-background/95"
+          className="absolute inset-0 bg-[url('/lovable-uploads/46b80c50-4191-4268-9b90-920da55ae5e6.png')] bg-cover bg-center opacity-30 mix-blend-screen"
           style={{
-            transform: `translateZ(-200px) translateY(${scrollPosition * 0.05}px)`,
+            transform: `translateZ(-200px) scale(${1 + scrollPosition * 0.0005})`,
             transition: "transform 0.1s ease-out",
           }}
         />
         
-        {/* Neural Grid Overlay with movement */}
+        {/* Mystical Tree Layer */}
         <div 
-          className="absolute inset-0 bg-[url('/photo-1518770660439-4636190af475')] bg-cover bg-center opacity-10 mix-blend-overlay"
+          className="absolute inset-0 bg-[url('/lovable-uploads/7f7da0f7-8fa6-4df7-a139-2668062c0b01.png')] bg-cover bg-center opacity-20 mix-blend-overlay"
           style={{
             ...getParallaxStyle(20),
-            transform: `translateZ(-100px) translateX(${-scrollPosition * 0.02}px)`,
+            transform: `translateZ(-150px) translateX(${-scrollPosition * 0.02}px)`,
           }}
         />
         
-        {/* Futuristic Circuit Pattern */}
+        {/* Cosmic Circle Layer */}
         <div 
-          className="absolute inset-0 bg-[url('/photo-1526374965328-7f61d4dc18c5')] bg-cover opacity-5"
+          className="absolute inset-0 bg-[url('/lovable-uploads/e56b7d2b-3b9b-4f2d-bc6c-245f063b39ec.png')] bg-cover opacity-15 mix-blend-luminosity"
           style={{
             ...getParallaxStyle(15),
-            transform: `translateZ(-150px) translateX(${scrollPosition * 0.03}px)`,
+            transform: `translateZ(-100px) translateX(${scrollPosition * 0.03}px)`,
+          }}
+        />
+
+        {/* Digital Earth Layer */}
+        <div 
+          className="absolute inset-0 bg-[url('/lovable-uploads/81cc94d5-e823-4cb3-8227-f751a0c02485.png')] bg-cover bg-center opacity-10 mix-blend-overlay"
+          style={{
+            ...getParallaxStyle(25),
+            transform: `translateZ(-120px) scale(${1 + scrollPosition * 0.0005})`,
           }}
         />
 
