@@ -1,27 +1,52 @@
-
 import React from "react";
 import Header from "@/components/Header";
 import FileUpload from "@/components/FileUpload";
 import PrismaticCard from "@/components/PrismaticCard";
 import { Separator } from "@/components/ui/separator";
+import { motion } from "framer-motion";
 
 const Index = () => {
   return (
     <div className="flex flex-col min-h-screen bg-background relative overflow-hidden">
       {/* Dynamic Background Effect */}
       <div className="fixed inset-0 bg-black z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-quantum-600/50 via-background to-background/95" />
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-b from-quantum-600/50 via-background to-background/95"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        />
         
         {/* Neural Grid Overlay */}
-        <div className="absolute inset-0 bg-[url('/photo-1518770660439-4636190af475')] bg-cover bg-center opacity-10 mix-blend-overlay" />
+        <motion.div 
+          className="absolute inset-0 bg-[url('/photo-1518770660439-4636190af475')] bg-cover bg-center opacity-10 mix-blend-overlay"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5 }}
+        />
         
         {/* Futuristic Circuit Pattern */}
-        <div className="absolute inset-0 bg-[url('/photo-1526374965328-7f61d4dc18c5')] bg-cover opacity-5 animate-pulse-slow" />
+        <motion.div 
+          className="absolute inset-0 bg-[url('/photo-1526374965328-7f61d4dc18c5')] bg-cover opacity-5"
+          animate={{ 
+            opacity: [0.03, 0.05, 0.03],
+          }}
+          transition={{ 
+            duration: 4,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        />
       </div>
 
       <Header />
       
-      <main className="flex-1 container max-w-4xl mx-auto px-4 py-8 relative z-10">
+      <motion.main 
+        className="flex-1 container max-w-4xl mx-auto px-4 py-8 relative z-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="space-y-8">
           {/* Hero section with enhanced visuals */}
           <section className="text-center space-y-4 relative">
@@ -97,7 +122,7 @@ const Index = () => {
             </p>
           </section>
         </div>
-      </main>
+      </motion.main>
     </div>
   );
 };

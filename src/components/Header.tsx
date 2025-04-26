@@ -1,8 +1,7 @@
-
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { Facebook, Instagram, Twitter, Linkedin, Youtube, Telegram, Link } from "lucide-react";
+import { Facebook, Instagram, Twitter, Linkedin, Youtube, Link } from "lucide-react";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
@@ -14,7 +13,24 @@ const socialLinks = [
   { icon: Twitter, href: "https://twitter.com/tamvonline", label: "Twitter" },
   { icon: Linkedin, href: "https://linkedin.com/company/tamvonline", label: "LinkedIn" },
   { icon: Youtube, href: "https://youtube.com/@tamvonline", label: "YouTube" },
-  { icon: Telegram, href: "https://t.me/tamvonline", label: "Telegram" },
+  {
+    icon: () => (
+      <svg
+        viewBox="0 0 24 24"
+        width="18"
+        height="18"
+        stroke="currentColor"
+        fill="none"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434Z" />
+      </svg>
+    ),
+    href: "https://t.me/tamvonline",
+    label: "Telegram"
+  }
 ];
 
 const Header = ({ className, ...props }: HeaderProps) => {
