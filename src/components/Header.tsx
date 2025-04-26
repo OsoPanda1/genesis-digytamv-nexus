@@ -2,6 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Facebook, Instagram, Twitter, Linkedin, Youtube, Link } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
@@ -35,25 +36,45 @@ const socialLinks = [
 
 const Header = ({ className, ...props }: HeaderProps) => {
   return (
-    <header 
-      className={cn(
-        "w-full flex flex-col",
-        className
-      )}
+    <motion.header 
+      className={cn("w-full flex flex-col", className)}
       {...props}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      {/* Tricolor Bar */}
+      {/* Tricolor Bar with Animation */}
       <div className="w-full h-1 flex">
-        <div className="w-1/3 bg-green-600" />
-        <div className="w-1/3 bg-white" />
-        <div className="w-1/3 bg-red-600" />
+        <motion.div 
+          className="w-1/3 bg-green-600"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        />
+        <motion.div 
+          className="w-1/3 bg-white"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        />
+        <motion.div 
+          className="w-1/3 bg-red-600"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        />
       </div>
 
       {/* Main Header Content */}
       <div className="py-4 px-6 flex flex-col gap-4 glassmorphic border-b border-white/5">
         {/* Top Row with Logo and System Status */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+          <motion.div 
+            className="flex items-center space-x-2"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <div className="bg-gradient-prismatic h-8 w-8 rounded-md flex items-center justify-center animate-pulse-glow">
               <span className="text-primary-foreground font-bold text-lg">G</span>
             </div>
@@ -63,17 +84,27 @@ const Header = ({ className, ...props }: HeaderProps) => {
               </h1>
               <p className="text-xs text-muted-foreground mt-0.5">Sistema de Integración de Conocimiento Híbrido</p>
             </div>
-          </div>
+          </motion.div>
           
-          <div className="flex items-center space-x-2">
+          <motion.div 
+            className="flex items-center space-x-2"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <span className="text-xs text-muted-foreground">Sistema Neural v1.0</span>
             <div className="h-2 w-2 rounded-full bg-accent animate-pulse-glow"></div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Social Links & TAMV Network Link */}
+        {/* Social Links & TAMV Network Link with hover effects */}
         <div className="flex items-center justify-between border-t border-white/5 pt-4">
-          <div className="flex items-center gap-3">
+          <motion.div 
+            className="flex items-center gap-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
             {socialLinks.map((social) => (
               <a
                 key={social.label}
@@ -86,29 +117,40 @@ const Header = ({ className, ...props }: HeaderProps) => {
                 <social.icon size={18} />
               </a>
             ))}
-          </div>
+          </motion.div>
 
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-2 text-xs bg-black/20 hover:bg-black/40 border-white/10"
-            asChild
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1 }}
           >
-            <a href="https://tamvonline.network" target="_blank" rel="noopener noreferrer">
-              <Link size={14} />
-              TAMV Online Network
-            </a>
-          </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2 text-xs bg-black/20 hover:bg-black/40 border-white/10"
+              asChild
+            >
+              <a href="https://tamvonline.network" target="_blank" rel="noopener noreferrer">
+                <Link size={14} />
+                TAMV Online Network
+              </a>
+            </Button>
+          </motion.div>
         </div>
       </div>
 
-      {/* Subtitle */}
-      <div className="w-full text-center py-2 bg-black/20 backdrop-blur-sm">
+      {/* Subtitle with shimmer effect */}
+      <motion.div 
+        className="w-full text-center py-2 bg-black/20 backdrop-blur-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 1.2 }}
+      >
         <p className="text-sm text-white/80 font-medium">
           Orgullosamente Mexicanos, Real del Monte, Hidalgo 🖤
         </p>
-      </div>
-    </header>
+      </motion.div>
+    </motion.header>
   );
 };
 

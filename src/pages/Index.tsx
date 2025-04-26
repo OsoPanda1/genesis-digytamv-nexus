@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import FileUpload from "@/components/FileUpload";
 import PrismaticCard from "@/components/PrismaticCard";
@@ -6,37 +7,98 @@ import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
 
 const Index = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  // Handle mouse movement for parallax effects
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        });
+      }
+    };
+
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Calculate parallax transformations
+  const getParallaxStyle = (depth: number) => {
+    const x = (mousePosition.x - (containerRef.current?.offsetWidth || 0) / 2) / depth;
+    const y = (mousePosition.y - (containerRef.current?.offsetHeight || 0) / 2) / depth;
+    return {
+      transform: `translate(${x}px, ${y}px)`,
+    };
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-background relative overflow-hidden">
-      {/* Dynamic Background Effect */}
+    <div 
+      ref={containerRef} 
+      className="flex flex-col min-h-screen bg-background relative overflow-hidden perspective-1000"
+    >
+      {/* Dynamic Background Effect with parallax */}
       <div className="fixed inset-0 bg-black z-0">
-        <motion.div 
+        {/* Deep space layer */}
+        <div 
           className="absolute inset-0 bg-gradient-to-b from-quantum-600/50 via-background to-background/95"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          style={{
+            transform: `translateZ(-200px) translateY(${scrollPosition * 0.05}px)`,
+            transition: "transform 0.1s ease-out",
+          }}
         />
         
-        {/* Neural Grid Overlay */}
-        <motion.div 
+        {/* Neural Grid Overlay with movement */}
+        <div 
           className="absolute inset-0 bg-[url('/photo-1518770660439-4636190af475')] bg-cover bg-center opacity-10 mix-blend-overlay"
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.5 }}
+          style={{
+            ...getParallaxStyle(20),
+            transform: `translateZ(-100px) translateX(${-scrollPosition * 0.02}px)`,
+          }}
         />
         
         {/* Futuristic Circuit Pattern */}
-        <motion.div 
+        <div 
           className="absolute inset-0 bg-[url('/photo-1526374965328-7f61d4dc18c5')] bg-cover opacity-5"
-          animate={{ 
-            opacity: [0.03, 0.05, 0.03],
-          }}
-          transition={{ 
-            duration: 4,
-            repeat: Infinity,
-            repeatType: "reverse"
+          style={{
+            ...getParallaxStyle(15),
+            transform: `translateZ(-150px) translateX(${scrollPosition * 0.03}px)`,
           }}
         />
+
+        {/* Animated particles effect */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="stars-container">
+            {[...Array(20)].map((_, i) => (
+              <div 
+                key={i} 
+                className="absolute rounded-full bg-white" 
+                style={{
+                  width: `${Math.random() * 3 + 1}px`,
+                  height: `${Math.random() * 3 + 1}px`,
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  opacity: Math.random() * 0.7 + 0.3,
+                  animation: `twinkle ${Math.random() * 5 + 3}s infinite ease-in-out`,
+                  animationDelay: `${Math.random() * 5}s`,
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       <Header />
