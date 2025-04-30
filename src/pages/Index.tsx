@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import FileUpload from "@/components/FileUpload";
@@ -6,7 +7,7 @@ import MatrixEffect from "@/components/MatrixEffect";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { GearIcon, LightningBoltIcon, PuzzleIcon } from "@radix-ui/react-icons";
+import { Settings, Zap, PuzzlePiece } from "lucide-react";
 
 const Index = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -195,7 +196,7 @@ const Index = () => {
                   <div className="absolute inset-0 bg-gradient-quantum opacity-5 animate-pulse-slow rounded-lg" />
                   <div className="flex items-center mb-4">
                     <div className="mr-3 p-2 rounded-full bg-blue-500/20 text-blue-400">
-                      <GearIcon className="h-5 w-5" />
+                      <Settings className="h-5 w-5" />
                     </div>
                     <h2 className="text-xl font-semibold relative z-10">Integración Neural de Datos</h2>
                   </div>
@@ -218,7 +219,7 @@ const Index = () => {
                     <div className="absolute inset-0 bg-[url('/photo-1439337153520-7082a56a81f4')] bg-cover opacity-10 rounded-lg" />
                     <div className="flex items-center mb-2">
                       <div className="mr-2 p-1.5 rounded-full bg-cyan-500/20 text-cyan-300">
-                        <PuzzleIcon className="h-4 w-4" />
+                        <PuzzlePiece className="h-4 w-4" />
                       </div>
                       <h3 className="font-medium relative z-10">Prisma Cognitivo</h3>
                     </div>
@@ -238,7 +239,7 @@ const Index = () => {
                     <div className="absolute inset-0 bg-[url('/photo-1496307653780-42ee777d4833')] bg-cover opacity-10 rounded-lg" />
                     <div className="flex items-center mb-2">
                       <div className="mr-2 p-1.5 rounded-full bg-purple-500/20 text-purple-300">
-                        <LightningBoltIcon className="h-4 w-4" />
+                        <Zap className="h-4 w-4" />
                       </div>
                       <h3 className="font-medium relative z-10">Nodos Simbióticos</h3>
                     </div>
