@@ -134,6 +134,34 @@
     @apply absolute rounded-full bg-white;
     animation: twinkle var(--twinkle-duration) ease-in-out infinite;
   }
+  
+  /* Matrix effect specific styles */
+  .matrix-canvas {
+    @apply fixed top-0 left-0 w-full h-full pointer-events-none;
+    opacity: 0.3;
+    mix-blend-mode: screen;
+  }
+  
+  /* Metallic text effect */
+  .metallic-text {
+    @apply font-bold tracking-wider;
+    text-shadow: 
+      0 0 1px rgba(0, 240, 255, 0.4),
+      0 0 2px rgba(0, 240, 255, 0.3),
+      0 0 5px rgba(0, 240, 255, 0.2);
+    color: rgba(176, 222, 255, 0.9);
+    background: linear-gradient(
+      180deg, 
+      #ffffff 0%, 
+      #a2d8ff 50%, 
+      #4dabf7 51%, 
+      #0f86d9 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 @keyframes dash {
@@ -153,3 +181,24 @@
   100% { background-position: 500px 0; }
 }
 
+/* Matrix falling effect for standalone elements */
+@keyframes matrixFall {
+  0% { 
+    opacity: 1;
+    transform: translateY(-100px);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% { 
+    opacity: 0;
+    transform: translateY(100vh); 
+  }
+}
+
+.matrix-character {
+  position: absolute;
+  color: #00f8ff;
+  text-shadow: 0 0 5px #00f8ff;
+  animation: matrixFall linear forwards;
+}
