@@ -20,7 +20,7 @@ const Header = () => {
         </Link>
         
         <nav className="mt-4 sm:mt-0">
-          <ul className="flex space-x-6 items-center">
+          <ul className="flex space-x-4 sm:space-x-6 items-center">
             <li>
               <Link 
                 to="/" 
@@ -35,6 +35,14 @@ const Header = () => {
                 className="text-sm text-muted-foreground hover:text-white transition-colors"
               >
                 Documentación
+              </Link>
+            </li>
+            <li>
+              <Link 
+                to="/membership" 
+                className="text-sm text-muted-foreground hover:text-white transition-colors"
+              >
+                Membresía
               </Link>
             </li>
             <li>
