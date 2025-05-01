@@ -1,4 +1,3 @@
-
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -66,6 +65,10 @@ const Login = () => {
         transition={{ duration: 0.8 }}
       >
         <div className="bg-black/40 backdrop-blur-md border border-blue-500/20 rounded-lg p-6 shadow-xl">
+          <div className="flex justify-center mb-4">
+            <Logo size="lg" />
+          </div>
+          
           <h1 className="text-2xl font-bold text-center mb-6 text-gradient bg-gradient-crystal animate-text-shimmer">
             Iniciar Sesión
           </h1>

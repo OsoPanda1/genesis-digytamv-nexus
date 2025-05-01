@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SocialIcons from "./SocialIcons";
+import Logo from "./Logo";
 
 const Header = () => {
   return (
@@ -15,13 +16,9 @@ const Header = () => {
       transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2 group">
-          <span className="text-2xl font-bold tracking-tight text-gradient bg-gradient-crystal animate-text-shimmer relative">
-            GÉNESIS
-            <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-400/40 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-          </span>
-          <span className="text-xl font-medium text-blue-300/90">DIGYTAMV</span>
-        </Link>
+        <div className="flex items-center space-x-3">
+          <Logo size="md" />
+        </div>
         
         <nav className="mt-4 sm:mt-0 flex flex-col sm:flex-row items-center gap-4">
           <ul className="flex space-x-4 sm:space-x-8 items-center">
