@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Facebook, Instagram, Twitter, Github, Send, Phone, Slack, Tiktok } from "lucide-react";
+import { Facebook, Instagram, Twitter, Github, Send, Phone, Slack, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type SocialIconsProps = {
@@ -17,7 +17,7 @@ const SocialIcons = ({ className = "", iconSize = 4, variant = "links" }: Social
     { name: "Telegram", icon: Send, url: "https://t.me/genesisdigytamv", hoverColor: "hover:text-blue-400" },
     { name: "WhatsApp", icon: Phone, url: "https://wa.me/1234567890", hoverColor: "hover:text-green-400" },
     { name: "GitHub", icon: Github, url: "https://github.com", hoverColor: "hover:text-gray-300" },
-    { name: "TikTok", icon: Tiktok, url: "https://tiktok.com", hoverColor: "hover:text-pink-300" },
+    { name: "TikTok", icon: Music, url: "https://tiktok.com", hoverColor: "hover:text-pink-300" },
   ];
 
   if (variant === "buttons") {
