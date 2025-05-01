@@ -1,9 +1,8 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { TooltipProvider } from "@/components/ui/tooltip";
+
 import Index from "./pages/Index";
 import Documentation from "./pages/Documentation";
 import Membership from "./pages/Membership";
@@ -11,13 +10,17 @@ import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 
+/**
+ * Componente principal de la aplicación TAMV Online Network
+ * 
+ * Define las rutas principales y proporciona los proveedores de contexto
+ * necesarios para el funcionamiento de la aplicación.
+ */
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
