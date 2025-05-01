@@ -1,3 +1,4 @@
+
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -8,6 +9,7 @@ import { toast } from "sonner";
 
 import Header from "@/components/Header";
 import MatrixEffect from "@/components/MatrixEffect";
+import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -76,6 +78,10 @@ const Register = () => {
         transition={{ duration: 0.8 }}
       >
         <div className="bg-black/40 backdrop-blur-md border border-blue-500/20 rounded-lg p-6 shadow-xl">
+          <div className="flex justify-center mb-4">
+            <Logo size="lg" />
+          </div>
+          
           <h1 className="text-2xl font-bold text-center mb-6 text-gradient bg-gradient-crystal animate-text-shimmer">
             Registro de Usuario
           </h1>
