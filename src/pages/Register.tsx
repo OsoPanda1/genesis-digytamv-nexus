@@ -59,15 +59,17 @@ const Register = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-background via-background/95 to-background/90 relative overflow-hidden">
-      {/* Matrix Effect Background */}
-      <MatrixEffect 
-        color="rgba(0, 190, 255, 0.6)" 
-        fontSize={16} 
-        speed={60} 
-        density={0.985} 
-        text={["TAMV", "ONLINE", "GÉNESIS", "DIGYTAMV", "NETWORK"]} 
-        className="opacity-30 mix-blend-screen"
-      />
+      {/* TAMVtrix Effect Background */}
+      <TAMVTrixEffect
+  className="matrix-canvas"
+  baseColor="#3bf5ff"
+  minFontSize={10}
+  maxFontSize={40}
+  speed={1}
+  density={0.93}
+  words={["TAMV", "ONLINE", "TAMVONLINE", "GENESIS", "DIGYTAMV"]}
+/>
+
 
       <Header />
 
