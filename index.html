@@ -1,26 +1,291 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" data-theme="tamv-quantum">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>genesis-digytamv-nexus</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
 
-    <meta property="og:title" content="genesis-digytamv-nexus" />
-    <meta property="og:description" content="Lovable Generated Project" />
+    <!-- IDENTIDAD CIVILIZATORIA -->
+    <title>TAMV DM-X4 QUANTUM — Núcleo Vivo XR-IA</title>
+    <meta
+      name="description"
+      content="TAMV DM-X4 QUANTUM: civilización digital multisensorial, XR-IA, economía justa y gobernanza auditable. No eres usuario, eres co-creador."
+    />
+    <meta name="author" content="Edwin Oswaldo Castillo Trejo — Anubis Villaseñor" />
+
+    <!-- META XR / THEME COLOR / PWA HINTS -->
+    <meta name="theme-color" content="#030418" />
+    <meta name="background-color" content="#030418" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="TAMV DM-X4 QUANTUM — Núcleo Vivo XR-IA" />
+    <meta
+      property="og:description"
+      content="Entra al metaverso sensorial de TAMV: DreamSpaces XR, Isabella IA emocional, economía TAMV-T y gobernanza civilizatoria."
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta
+      property="og:image"
+      content="https://tamv.cdn.online/assets/opengraph/tamv-quantum-nexus.png"
+    />
+    <meta property="og:url" content="https://tamv.online" />
 
+    <!-- TWITTER / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:site" content="@tamv_online" />
+    <meta
+      name="twitter:title"
+      content="TAMV DM-X4 QUANTUM — Civilización Digital XR-IA"
+    />
+    <meta
+      name="twitter:description"
+      content="No es una página, es un portal vivo. Entra al Núcleo TAMV."
+    />
+    <meta
+      name="twitter:image"
+      content="https://tamv.cdn.online/assets/opengraph/tamv-quantum-nexus.png"
+    />
+
+    <!-- TIPOGRAFÍA FUTURISTA -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      crossorigin
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- PRELOAD DE NÚCLEO VISUAL (HERO / XR) -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://tamv.cdn.online/assets/bg/tamv-quantum-hero.webp"
+    />
+    <link
+      rel="preload"
+      as="video"
+      href="https://tamv.cdn.online/assets/video/tamv-hero-loop.webm"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/assets/fonts/tamv-orbit.woff2"
+      crossorigin
+    />
+
+    <!-- ESTILO BASE: FONDO MATRIX IRIDISCENTE + MODO XR READY -->
+    <style>
+      :root {
+        --tamv-bg-main: #030418;
+        --tamv-accent-blue: #3bf5ff;
+        --tamv-accent-lilac: #c084ff;
+        --tamv-accent-iris: #4c82ff;
+        --tamv-grid-glow: rgba(59, 245, 255, 0.12);
+        --tamv-text-main: #f5f7ff;
+        --tamv-text-soft: #c7ccff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top, #08091c 0, #02010f 45%, #000 100%);
+        color: var(--tamv-text-main);
+        font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        text-rendering: geometricPrecision;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* CAPA MATRIX / GRID CUÁNTICO EN 3D (ANTES DEL ROOT) */
+      .tamv-bg-layer {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: -2;
+        background:
+          radial-gradient(circle at 10% 0%, rgba(192, 132, 255, 0.25), transparent 55%),
+          radial-gradient(circle at 90% 0%, rgba(59, 245, 255, 0.18), transparent 60%),
+          radial-gradient(circle at 50% 120%, rgba(76, 130, 255, 0.28), transparent 65%);
+      }
+
+      .tamv-bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.04) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.04) 1px,
+            transparent 1px
+          );
+        background-size: 64px 64px;
+        mix-blend-mode: soft-light;
+        opacity: 0.5;
+        transform-origin: center;
+        animation: tamv-grid-breathe 24s ease-in-out infinite alternate;
+      }
+
+      .tamv-bg-code-stream {
+        position: absolute;
+        inset: -20vh 0 0 0;
+        background-image: linear-gradient(
+          120deg,
+          rgba(59, 245, 255, 0.1) 0,
+          transparent 40%,
+          rgba(192, 132, 255, 0.08) 60%,
+          transparent 100%
+        );
+        mix-blend-mode: screen;
+        opacity: 0.6;
+        animation: tamv-code-flow 18s linear infinite;
+      }
+
+      @keyframes tamv-grid-breathe {
+        0% {
+          transform: perspective(1200px) rotateX(60deg) translateY(0);
+          opacity: 0.45;
+        }
+        100% {
+          transform: perspective(1200px) rotateX(72deg) translateY(-40px);
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes tamv-code-flow {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        100% {
+          transform: translate3d(-12%, -32%, 0);
+        }
+      }
+
+      /* ROOT COMO PORTAL XR */
+      #root {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ESTADO DE CARGA INICIAL — PORTAL */
+      .tamv-boot-splash {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .tamv-boot-logo {
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--tamv-text-main);
+        text-shadow:
+          0 0 20px rgba(59, 245, 255, 0.7),
+          0 0 40px rgba(76, 130, 255, 0.6);
+      }
+
+      .tamv-boot-orbit {
+        width: 72px;
+        height: 72px;
+        border-radius: 999px;
+        border: 1px solid rgba(59, 245, 255, 0.6);
+        border-top-color: rgba(192, 132, 255, 0.8);
+        box-shadow:
+          0 0 24px rgba(59, 245, 255, 0.5),
+          0 0 48px rgba(192, 132, 255, 0.35);
+        animation: tamv-orbit-spin 1.8s linear infinite;
+      }
+
+      .tamv-boot-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--tamv-text-soft);
+      }
+
+      @keyframes tamv-orbit-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* BARRA DE NAVEGACIÓN IMPLÍCITA (MÓVIL) */
+      @media (max-width: 768px) {
+        body {
+          background: radial-gradient(circle at 20% 0%, #05071c, #000);
+        }
+      }
+    </style>
   </head>
 
   <body>
+    <!-- CAPA VISUAL CUÁNTICA GLOBAL -->
+    <div class="tamv-bg-layer">
+      <div class="tamv-bg-grid"></div>
+      <div class="tamv-bg-code-stream"></div>
+    </div>
+
+    <!-- ESTADO DE CARGA / PORTAL INICIAL ANTES DE REACT -->
+    <div class="tamv-boot-splash" id="tamv-boot">
+      <div class="tamv-boot-logo">T&nbsp;A&nbsp;M&nbsp;V</div>
+      <div class="tamv-boot-orbit"></div>
+      <div class="tamv-boot-label">Inicializando Núcleo XR‑IA</div>
+    </div>
+
+    <!-- CONTENEDOR REACT -->
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+
+    <!-- IMPORTANTE: NO TOCAR ESTOS SCRIPTS -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- REMOVER SPLASH CUANDO REACT CARGUE -->
+    <script>
+      window.addEventListener("load", () => {
+        const splash = document.getElementById("tamv-boot");
+        if (splash) {
+          splash.style.opacity = "0";
+          splash.style.transition = "opacity 600ms ease-out";
+          setTimeout(() => splash.remove(), 650);
+        }
+      });
+    </script>
   </body>
 </html>
