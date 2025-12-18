@@ -1,204 +1,518 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  @font-face {
-    font-family: 'Quantum';
-    src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-    font-display: swap;
-  }
+/* ===========================
+   BASE: PALETA, TIPOGRAFÍA, PROFUNDIDAD
+   =========================== */
 
+@layer base {
   :root {
-    --background: 240 33% 8%;
-    --foreground: 240 10% 95%;
+    /* Paleta cuántica profunda */
+    --bg-deep-space: #02030a;
+    --bg-iris-dark: #07091c;
+    --bg-iris-mid: #10142c;
+    --bg-iris-soft: #161a33;
 
-    --card: 240 25% 12%;
-    --card-foreground: 240 10% 95%;
+    --accent-cyan-soft: #67e8f9;
+    --accent-cyan-strong: #22d3ee;
+    --accent-iris: #4f46e5;
+    --accent-lilac: #c084fc;
+    --accent-neon: #3bf5ff;
 
-    --popover: 240 25% 12%;
-    --popover-foreground: 240 10% 95%;
+    --text-main: #f9fbff;
+    --text-soft: #c7d2ff;
+    --text-muted: #8b91b5;
 
-    --primary: 250 69% 75%;
-    --primary-foreground: 240 35% 15%;
+    --border-subtle: rgba(148, 163, 184, 0.35);
+    --border-strong: rgba(148, 163, 184, 0.68);
 
-    --secondary: 190 59% 45%;
-    --secondary-foreground: 240 10% 95%;
+    /* Materiales */
+    --glass-dark: rgba(7, 10, 25, 0.85);
+    --glass-soft: rgba(15, 23, 42, 0.7);
+    --glass-hard: rgba(15, 23, 42, 0.95);
 
-    --muted: 240 25% 20%;
-    --muted-foreground: 240 10% 65%;
+    /* Luces y reflejos */
+    --glow-cyan-soft: 0 0 18px rgba(34, 211, 238, 0.4);
+    --glow-cyan-strong: 0 0 35px rgba(34, 211, 238, 0.85);
+    --glow-iris-soft: 0 0 18px rgba(79, 70, 229, 0.5);
+    --glow-lilac-soft: 0 0 22px rgba(192, 132, 252, 0.5);
 
-    --accent: 190 70% 65%;
-    --accent-foreground: 240 35% 15%;
+    /* Texturas */
+    --noise-opacity: 0.08;
+    --grain-size: 1.5px;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 240 10% 95%;
-
-    --border: 240 25% 25%;
-    --input: 240 25% 20%;
-    --ring: 250 69% 75%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 240 33% 10%;
-    --sidebar-foreground: 240 10% 90%;
-    --sidebar-primary: 250 69% 70%;
-    --sidebar-primary-foreground: 240 35% 10%;
-    --sidebar-accent: 240 25% 20%;
-    --sidebar-accent-foreground: 240 10% 90%;
-    --sidebar-border: 240 25% 25%;
-    --sidebar-ring: 250 69% 70%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
+    /* Radios y blurs */
+    --radius-card: 1.4rem;
+    --radius-pill: 999px;
+    --blur-soft: 16px;
+    --blur-strong: 32px;
   }
 
   html,
   body {
-    @apply bg-gradient-to-b from-background via-background/95 to-background/90 text-foreground font-['Outfit',sans-serif] antialiased min-h-screen;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    color: var(--text-main);
+    font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--bg-deep-space);
+
+    /* Fondo hiperreal: capas de luz + ruido + viñeta */
+    background-image:
+      radial-gradient(circle at 0% 0%, #1f2937 0, transparent 55%),
+      radial-gradient(circle at 100% 0%, #111827 0, transparent 55%),
+      radial-gradient(circle at 50% 120%, #0b1120 0, transparent 65%);
     background-attachment: fixed;
+    position: relative;
+    overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-medium tracking-tight;
+  body::before {
+    /* Grid isométrico leve + viñeta externa */
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      radial-gradient(circle at 50% 10%, rgba(56, 189, 248, 0.35), transparent 55%),
+      radial-gradient(circle at 10% 90%, rgba(129, 140, 248, 0.4), transparent 60%);
+    background-size: 72px 72px, 72px 72px, 80% 40%, 60% 40%;
+    mix-blend-mode: soft-light;
+    opacity: 0.5;
+    transform-origin: center;
+    animation: bgGridParallax 26s ease-in-out infinite alternate;
+    z-index: -2;
+  }
+
+  body::after {
+    /* Ruido suave + viñeta oscura en bordes */
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 50% 20%, transparent 0%, rgba(0, 0, 0, 0.15) 70%),
+      radial-gradient(circle at 50% 120%, rgba(0, 0, 0, 0.4), transparent 70%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+    opacity: 0.38;
+    z-index: -1;
   }
 }
 
+/* ===========================
+   COMPONENTES VISUALES TAMV
+   =========================== */
+
 @layer components {
-  .glassmorphic {
-    @apply bg-black/20 backdrop-blur-md border border-white/10 shadow-xl;
+  /* ===========================
+     1. TARJETAS HIPERREALES
+     =========================== */
+
+  .tamv-card {
+    border-radius: var(--radius-card);
+    background: radial-gradient(circle at 10% 0%, #111827, #020617 80%);
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    box-shadow:
+      0 18px 45px rgba(15, 23, 42, 0.9),
+      0 0 45px rgba(15, 23, 42, 0.8);
+    position: relative;
+    overflow: hidden;
   }
 
-  .cosmic-portal {
-    @apply relative overflow-hidden rounded-full;
-  }
-
-  .cosmic-portal::before {
+  .tamv-card::before {
+    /* Reflejo especular suave */
     content: "";
-    @apply absolute inset-0 bg-gradient-to-r from-crystal-300 via-quantum-300 to-nebula-300 animate-pulse-slow opacity-50;
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.16), transparent 55%);
+    opacity: 0.0;
+    transform: translate3d(-15px, -15px, 0);
+    transition: opacity 0.5s ease, transform 0.7s ease;
   }
 
-  .cosmic-portal::after {
+  .tamv-card::after {
+    /* Contorno interno iridiscente */
     content: "";
-    @apply absolute inset-2 bg-background rounded-full;
+    position: absolute;
+    inset: 1px;
+    border-radius: calc(var(--radius-card) - 1px);
+    border: 1px solid transparent;
+    background:
+      linear-gradient(#020617, #020617) padding-box,
+      linear-gradient(120deg, rgba(34, 211, 238, 0.45), rgba(192, 132, 252, 0.28), rgba(37, 99, 235, 0.42)) border-box;
+    opacity: 0.5;
+    pointer-events: none;
   }
 
-  .neural-path {
-    @apply opacity-0 stroke-quantum-300/70 stroke-[1.5] filter drop-shadow-[0_0_4px_rgba(155,135,245,0.5)];
-    stroke-dasharray: 10;
-    stroke-dashoffset: 20;
-    animation: dash 1.5s linear forwards;
+  .tamv-card:hover::before {
+    opacity: 0.8;
+    transform: translate3d(0, 0, 0);
   }
 
-  .crystal-glow {
-    @apply relative transition-all duration-500;
+  .tamv-card:hover {
+    box-shadow:
+      0 25px 65px rgba(15, 23, 42, 0.9),
+      0 0 60px rgba(34, 211, 238, 0.25);
+    transform: translateY(-1px);
   }
-  
-  .crystal-glow::after {
+
+  /* Tarjeta para secciones de video */
+  .tamv-card-video {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: radial-gradient(circle at 10% 0%, #020617, #020617 80%);
+  }
+
+  .tamv-card-video video,
+  .tamv-card-video canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.25) contrast(1.08);
+  }
+
+  .tamv-card-video::before {
+    /* Glores suaves en esquinas */
     content: "";
-    @apply absolute inset-0 rounded-lg bg-gradient-crystal opacity-0 blur-xl transition-opacity duration-500;
-    z-index: -1;
-  }
-  
-  .crystal-glow:hover::after {
-    @apply opacity-30;
-  }
-
-  .celestial-card {
-    @apply relative overflow-hidden rounded-lg transition-all duration-500;
-    background: linear-gradient(45deg, rgba(155,135,245,0.1), rgba(103,195,222,0.1));
-  }
-
-  .celestial-card::before {
-    content: '';
-    @apply absolute inset-0 bg-gradient-to-br from-quantum-300/10 via-crystal-300/5 to-nebula-300/10 opacity-0 transition-opacity duration-500;
-  }
-
-  .celestial-card:hover::before {
-    @apply opacity-100;
-  }
-
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-crystal animate-text-shimmer;
-  }
-
-  .star-field {
-    @apply absolute inset-0 overflow-hidden pointer-events-none;
-  }
-
-  .star {
-    @apply absolute rounded-full bg-white;
-    animation: twinkle var(--twinkle-duration) ease-in-out infinite;
-  }
-  
-  /* Matrix effect specific styles */
-  .matrix-canvas {
-    @apply fixed top-0 left-0 w-full h-full pointer-events-none;
-    opacity: 0.3;
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 5% 5%, rgba(34, 211, 238, 0.35), transparent 55%),
+      radial-gradient(circle at 95% 5%, rgba(192, 132, 252, 0.3), transparent 55%);
     mix-blend-mode: screen;
+    opacity: 0.45;
+    pointer-events: none;
   }
-  
-  /* Metallic text effect */
-  .metallic-text {
-    @apply font-bold tracking-wider;
-    text-shadow: 
-      0 0 1px rgba(0, 240, 255, 0.4),
-      0 0 2px rgba(0, 240, 255, 0.3),
-      0 0 5px rgba(0, 240, 255, 0.2);
-    color: rgba(176, 222, 255, 0.9);
-    background: linear-gradient(
-      180deg, 
-      #ffffff 0%, 
-      #a2d8ff 50%, 
-      #4dabf7 51%, 
-      #0f86d9 100%
+
+  .tamv-card-video::after {
+    /* Viñeta suave */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(2, 6, 23, 0.6) 90%);
+    pointer-events: none;
+  }
+
+  /* ===========================
+     2. HERO PRINCIPAL / PORTAL
+     =========================== */
+
+  .tamv-hero {
+    position: relative;
+    width: 100%;
+    min-height: 70vh;
+    border-radius: 2.2rem;
+    background: radial-gradient(circle at 0 0, #111827, #020617 75%);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    overflow: hidden;
+    box-shadow:
+      0 24px 80px rgba(15, 23, 42, 0.95),
+      0 0 90px rgba(34, 211, 238, 0.24);
+    isolation: isolate;
+  }
+
+  .tamv-hero__bg-layer {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.45), transparent 65%),
+      radial-gradient(circle at 90% 0%, rgba(192, 132, 252, 0.4), transparent 65%),
+      radial-gradient(circle at 50% 120%, rgba(37, 99, 235, 0.6), transparent 70%);
+    mix-blend-mode: soft-light;
+    opacity: 0.9;
+    transform-origin: center;
+    animation: heroLightWaves 24s ease-in-out infinite alternate;
+  }
+
+  .tamv-hero__noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+    opacity: var(--noise-opacity);
+    pointer-events: none;
+  }
+
+  .tamv-hero__content {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ===========================
+     3. TEXTO Y TITULARES
+     =========================== */
+
+  .tamv-heading-main {
+    font-size: clamp(2.7rem, 5vw, 3.8rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-shadow:
+      0 0 1px rgba(255, 255, 255, 0.35),
+      0 0 10px rgba(34, 211, 238, 0.3),
+      0 0 24px rgba(37, 99, 235, 0.25);
+    color: #e5edff;
+    background-image: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #e0edff 35%,
+      #93c5fd 55%,
+      #1d4ed8 75%,
+      #020617 100%
     );
     background-clip: text;
     -webkit-background-clip: text;
     text-fill-color: transparent;
     -webkit-text-fill-color: transparent;
   }
-}
 
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-    opacity: 1;
+  .tamv-heading-sub {
+    font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+
+  .tamv-text-soft {
+    color: var(--text-soft);
+  }
+
+  .tamv-text-muted {
+    color: var(--text-muted);
+  }
+
+  /* ===========================
+     4. EFECTO MATRIX (DETALLISTA)
+     =========================== */
+
+  .matrix-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.25;
+    mix-blend-mode: screen;
+    z-index: -1;
+  }
+
+  .matrix-char {
+    position: absolute;
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+    color: #00f8ff;
+    text-shadow:
+      0 0 5px rgba(0, 248, 255, 0.9),
+      0 0 15px rgba(0, 248, 255, 0.6);
+    animation: matrixFall var(--matrix-duration, 7s) linear infinite;
+    opacity: 0;
+  }
+
+  /* ===========================
+     5. PORTAL GLOBO / BUSCADOR
+     =========================== */
+
+  .tamv-globe-shell {
+    position: relative;
+    width: 100%;
+    border-radius: 2rem;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 0%, #020617, #000 70%);
+    border: 1px solid rgba(148, 163, 184, 0.32);
+    box-shadow:
+      0 20px 60px rgba(15, 23, 42, 0.9),
+      0 0 55px rgba(34, 211, 238, 0.2);
+  }
+
+  .tamv-globe-shell canvas {
+    filter: saturate(1.1) contrast(1.05);
+  }
+
+  .tamv-globe-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(34, 211, 238, 0.25), transparent 55%),
+      radial-gradient(circle at 80% 0%, rgba(129, 140, 248, 0.25), transparent 55%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .tamv-globe-search-bar {
+    position: absolute;
+    left: 50%;
+    bottom: 2.8rem;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 999px;
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.85),
+      rgba(15, 23, 42, 0.95)
+    );
+    border: 1px solid rgba(34, 211, 238, 0.5);
+    box-shadow:
+      0 0 24px rgba(34, 211, 238, 0.6),
+      0 0 40px rgba(34, 211, 238, 0.25);
+    backdrop-filter: blur(18px);
+  }
+
+  /* ===========================
+     6. ORBE ISABELLA (CHAT PORTAL)
+     =========================== */
+
+  .tamv-isabella-orb {
+    position: relative;
+    width: 11rem;
+    height: 11rem;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 0, #67e8f9, #020617 75%);
+    box-shadow:
+      0 0 45px rgba(103, 232, 249, 0.85),
+      0 0 80px rgba(129, 140, 248, 0.6);
+    overflow: hidden;
+  }
+
+  .tamv-isabella-orb::before {
+    content: "";
+    position: absolute;
+    inset: 12%;
+    border-radius: inherit;
+    background: conic-gradient(
+      from 120deg,
+      rgba(59, 245, 255, 0.12),
+      rgba(192, 132, 252, 0.7),
+      rgba(59, 245, 255, 0.22),
+      rgba(59, 245, 255, 0.12)
+    );
+    mix-blend-mode: screen;
+    animation: orbGlow 18s linear infinite;
+  }
+
+  .tamv-isabella-orb::after {
+    content: "";
+    position: absolute;
+    inset: 24%;
+    border-radius: inherit;
+    background: radial-gradient(circle at 30% 20%, #020617, #000 75%);
+    box-shadow:
+      inset 0 0 35px rgba(15, 23, 42, 1),
+      0 0 25px rgba(15, 23, 42, 0.8);
+  }
+
+  /* ===========================
+     7. NAV INMERSIVA
+     =========================== */
+
+  .tamv-nav-immersive {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 1.5rem;
+    margin-inline: auto;
+    max-width: 1100px;
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.9),
+      rgba(15, 23, 42, 0.95)
+    );
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    box-shadow:
+      0 0 35px rgba(0, 0, 0, 1),
+      0 0 35px rgba(34, 211, 238, 0.26);
+    backdrop-filter: blur(18px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    z-index: 20;
+  }
+
+  .tamv-nav-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 999px;
+    color: var(--text-soft);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: all 0.22s ease-out;
+  }
+
+  .tamv-nav-item--active {
+    background: radial-gradient(circle at 50% 0, rgba(34, 211, 238, 0.35), rgba(15, 23, 42, 0.96));
+    color: var(--text-main);
+    box-shadow:
+      0 0 14px rgba(34, 211, 238, 0.7),
+      0 0 24px rgba(34, 211, 238, 0.35);
+  }
+
+  .tamv-nav-item:hover {
+    color: var(--text-main);
   }
 }
 
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1); }
+/* ===========================
+   ANIMACIONES FINAS
+   =========================== */
+
+@keyframes bgGridParallax {
+  0% {
+    transform: perspective(1200px) rotateX(60deg) translateY(0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: perspective(1200px) rotateX(70deg) translateY(-40px);
+    opacity: 0.7;
+  }
 }
 
-@keyframes text-shimmer {
-  0% { background-position: -500px 0; }
-  100% { background-position: 500px 0; }
+@keyframes heroLightWaves {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.02) translate3d(-12px, -14px, 0);
+  }
 }
 
-/* Matrix falling effect for standalone elements */
 @keyframes matrixFall {
-  0% { 
+  0% {
+    opacity: 0;
+    transform: translateY(-120px) translateX(0);
+  }
+  10% {
     opacity: 1;
-    transform: translateY(-100px);
   }
   85% {
     opacity: 1;
   }
-  100% { 
+  100% {
     opacity: 0;
-    transform: translateY(100vh); 
+    transform: translateY(100vh) translateX(-4px);
   }
 }
 
-.matrix-character {
-  position: absolute;
-  color: #00f8ff;
-  text-shadow: 0 0 5px #00f8ff;
-  animation: matrixFall linear forwards;
+@keyframes orbGlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
