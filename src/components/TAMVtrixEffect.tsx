@@ -12,20 +12,22 @@ interface TAMVTrixEffectProps {
 
 type Column = {
   y: number;
-  depth: number;
-  fontScale: number;
-  drift: number;
+  depth: number;   // 0 = muy cerca, 1 = muy lejos
+  scale: number;   // escala de fuente
+  drift: number;   // deriva horizontal
+  opacity: number; // intensidad general de la columna
   wordIndex: number;
   charIndex: number;
 };
 
-const DEFAULT_WORDS = ["TAMV", "ONLINE", "TAMVONLINE", "GENESIS", "DIGYTAMV"];
+const CORE_LETTERS = "TAMVONLINE".split("");
+const DEFAULT_WORDS = ["TAMV", "ONLINE", "TAMVONLINE", "GENESIS", "DIGYTAMV", "NETWORK"];
 
 const TAMVTrixEffect: React.FC<TAMVTrixEffectProps> = ({
   baseColor = "#3bf5ff",
-  minFontSize = 10,
-  maxFontSize = 38,
-  speed = 0.9,
+  minFontSize = 11,
+  maxFontSize = 40,
+  speed = 1,
   density = 0.94,
   className = "",
   words = DEFAULT_WORDS,
@@ -41,114 +43,123 @@ const TAMVTrixEffect: React.FC<TAMVTrixEffectProps> = ({
     let animationFrameId: number;
     let columns: Column[] = [];
     let columnWidth = 0;
-    let baseFontSize = 18;
+    let baseFont = 18;
 
-    const lettersPool = "TAMVONLINE".split(""); // núcleo semántico del efecto
-
-    const resizeCanvas = () => {
+    const initColumns = () => {
+      if (!canvas) return;
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      // el ancho base de columna se deriva de una fuente estándar
-      baseFontSize = (minFontSize + maxFontSize) / 2;
-      columnWidth = baseFontSize * 0.8;
+      baseFont = (minFontSize + maxFontSize) / 2;
+      columnWidth = baseFont * 0.8;
       const columnCount = Math.floor(canvas.width / columnWidth);
 
       columns = Array.from({ length: columnCount }).map((_, i): Column => {
-        const depth = Math.random(); // 0 = frente, 1 = fondo
-        const fontScale = 0.6 + Math.random() * 0.9; // rango de escala
-        const drift = (Math.random() - 0.5) * 0.8; // deriva lateral
+        const depth = Math.random(); // 0 cercano, 1 lejano
+        const scale = 0.7 + Math.random() * 1.1;
+        const drift = (Math.random() - 0.5) * 1.2;
+        const opacity = 0.3 + 0.7 * (1 - depth); // columnas cercanas = más intensas
 
         return {
           y: Math.floor(Math.random() * canvas.height),
           depth,
-          fontScale,
+          scale,
           drift,
+          opacity,
           wordIndex: Math.floor(Math.random() * words.length),
-          charIndex: Math.floor(Math.random() * lettersPool.length),
+          charIndex: Math.floor(Math.random() * CORE_LETTERS.length),
         };
       });
     };
 
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    initColumns();
+    window.addEventListener("resize", initColumns);
 
-    const bgFade = "rgba(1, 4, 16, 0.09)";
+    const bgFade = "rgba(1, 4, 16, 0.13)";
 
     const animate = () => {
+      if (!canvas) return;
       const { width, height } = canvas;
 
-      // fondo semitransparente para estela suave, no mancha plana
+      // capa de fundido sutil para la estela
       ctx.fillStyle = bgFade;
       ctx.fillRect(0, 0, width, height);
 
       columns.forEach((col, i) => {
-        if (Math.random() > density && col.y <= 0) {
-          // columna “descansa”
-          return;
-        }
+        if (col.y <= 0 && Math.random() > density) return;
 
-        // profundidad → escala de fuente + opacidad + velocidad
         const depth = col.depth;
+        const z = 1 - depth; // 1 cerca, 0 lejos
+
         const fontSize =
-          minFontSize + (maxFontSize - minFontSize) * col.fontScale * (0.5 + 0.5 * (1 - depth));
-        const velocity = speed * (0.4 + 0.8 * (1 - depth)); // más profundo = más lento
-        const xCenter = i * columnWidth + columnWidth / 2 + col.drift * 18 * (1 - depth);
+          minFontSize +
+          (maxFontSize - minFontSize) * col.scale * (0.4 + 0.6 * z);
 
-        // elegir siguiente carácter basado en TAMVONLINE / word actual
+        const velocity = speed * (0.3 + 0.9 * z); // más cerca = más rápido
+
+        const baseX = i * columnWidth + columnWidth / 2;
+        const x = baseX + col.drift * 24 * z;
+        const y = col.y;
+
         const word = words[col.wordIndex] || "TAMVONLINE";
-        const letter =
-          depth > 0.35
-            ? lettersPool[Math.floor(Math.random() * lettersPool.length)]
-            : word[col.charIndex % word.length];
+        const coreLetter =
+          CORE_LETTERS[Math.floor(Math.random() * CORE_LETTERS.length)];
+        const wordLetter = word[col.charIndex % word.length];
 
-        // gradiente vertical con brillo en la cabeza y estela
-        const yPos = col.y;
+        // profundo → más algoritmo (letras sueltas), cerca → más palabra legible
+        const letter = depth > 0.5 ? coreLetter : wordLetter;
+
+        // gradiente vertical con cabeza brillante y cola suave
         const gradient = ctx.createLinearGradient(
-          xCenter,
-          yPos - fontSize * 5,
-          xCenter,
-          yPos + fontSize
+          x,
+          y - fontSize * 5,
+          x,
+          y + fontSize
         );
 
         const headColor = baseColor;
-        const tailColor = `rgba(0, 180, 255, ${0.1 + 0.3 * (1 - depth)})`;
-        const haloColor = `rgba(59, 245, 255, ${0.5 + 0.3 * (1 - depth)})`;
+        const haloColor = `rgba(59, 245, 255, ${
+          0.35 * col.opacity + 0.25 * z
+        })`;
+        const tailColor = `rgba(0, 160, 255, ${
+          0.15 * col.opacity + 0.1 * z
+        })`;
 
         gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
         gradient.addColorStop(0.35, tailColor);
-        gradient.addColorStop(0.85, haloColor);
+        gradient.addColorStop(0.8, haloColor);
         gradient.addColorStop(1, headColor);
 
         ctx.fillStyle = gradient;
         ctx.font = `${fontSize}px "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace`;
         ctx.textAlign = "center";
 
-        // efecto de desenfoque simulado vía sombra suave
-        ctx.shadowColor = `rgba(59, 245, 255, ${0.3 + 0.4 * (1 - depth)})`;
-        ctx.shadowBlur = 6 + 14 * (1 - depth);
+        // “desenfoque” por profundidad
+        ctx.shadowColor = `rgba(59, 245, 255, ${0.25 + 0.4 * z})`;
+        ctx.shadowBlur = 4 + 20 * z;
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
 
-        ctx.fillText(letter, xCenter, yPos);
-
-        // limpiar shadow para no contaminar otros renders
+        ctx.globalAlpha = col.opacity;
+        ctx.fillText(letter, x, y);
+        ctx.globalAlpha = 1;
         ctx.shadowBlur = 0;
 
-        // actualizar posición de la columna
-        col.y += velocity * fontSize;
+        // actualizar posición de la columna (respiración del espacio)
+        col.y += velocity * (fontSize / 9);
 
-        // cuando sale de pantalla, reset pero cambia profundidad / escala
+        // reset cuando sale del canvas
         if (col.y > height + fontSize * 2) {
           col.y = -fontSize * (2 + Math.random() * 6);
           col.depth = Math.random();
-          col.fontScale = 0.6 + Math.random() * 0.9;
-          col.drift = (Math.random() - 0.5) * 0.9;
+          const z2 = 1 - col.depth;
+          col.scale = 0.7 + Math.random() * 1.1;
+          col.drift = (Math.random() - 0.5) * 1.2;
+          col.opacity = 0.3 + 0.7 * z2;
           col.wordIndex = Math.floor(Math.random() * words.length);
-          col.charIndex = Math.floor(Math.random() * lettersPool.length);
+          col.charIndex = Math.floor(Math.random() * CORE_LETTERS.length);
         } else {
-          // avanzar en el “algoritmo” de letras
-          if (Math.random() < 0.45) {
+          if (Math.random() < 0.5) {
             col.charIndex = (col.charIndex + 1) % word.length;
           }
         }
@@ -160,7 +171,7 @@ const TAMVTrixEffect: React.FC<TAMVTrixEffectProps> = ({
     animate();
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", initColumns);
       cancelAnimationFrame(animationFrameId);
     };
   }, [baseColor, minFontSize, maxFontSize, speed, density, words]);
@@ -168,9 +179,10 @@ const TAMVTrixEffect: React.FC<TAMVTrixEffectProps> = ({
   return (
     <canvas
       ref={canvasRef}
-      className={`fixed top-0 left-0 w-full h-full pointer-events-none z-0 ${className}`}
+      className={`matrix-canvas ${className ?? ""}`}
     />
   );
 };
 
 export default TAMVTrixEffect;
+
